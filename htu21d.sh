@@ -53,6 +53,7 @@ function mTemp (){
     RET=$(i2cget -y 1 $ADDRESS $CMD_mTemp_HM w)
     if [ $? -ne 0 ]; then
        log_msg "ERROR" "Failed measurement of Temperature"
+       exit 1
     fi
     #RAW=0x683A  # TEST: result must be 24.7 C
     RAW=$(( ($RET & 0xfc00)>>8 | ($RET & 0x00ff)<<8 ))
@@ -80,9 +81,11 @@ function mPres(){
     #PP=$(echo "scale=1; 10^($A-$B/($TEMP+$C))" | bc)
     #echo $PP
     log_msg "ERROR" "not support"
+    exit 1
 }
 function mdTemp(){
     log_msg "ERROR" "not support"
+    exit 1
 }
 function help(){
     echo "Usage: $SCRIPT [OPTION]"

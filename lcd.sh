@@ -21,18 +21,18 @@ CMD_H0_DdramAd=0x80
 
 # LCD Control
 function lcd_clear(){
-    i2cset -y 1 $ADDRESS 0x00 $CMD_H0_ClearDisplay i    # CO=0 RS=0
+    i2cset -y 1 $ADDRESS 0x00 $CMD_H0_ClearDisplay i                # CO=0 RS=0
 }
 function lcd_cursor(){
     if [ 0 -le $1 ] && [ $1 -le 32 ]; then
-        i2cset -y 1 $ADDRESS 0x00 $((CMD_H0_DdramAd + $1)) i            # CO=0 RS=0
+        i2cset -y 1 $ADDRESS 0x00 $((CMD_H0_DdramAd + $1)) i        # CO=0 RS=0
     fi
 }
 function lcd_init(){
-    i2cset -y 1 $ADDRESS 0x00 $((CMD_FunctionSet | 0x10)) i         # CO=0 RS=0, data length 8bit & 1-line by 32 display & MUX 1:18
+    i2cset -y 1 $ADDRESS 0x00 $((CMD_FunctionSet | 0x10)) i         # CO=0 RS=0, data length 8bit + 1-line by 32 display + MUX 1:18
     lcd_clear
     lcd_cursor 0
-    i2cset -y 1 $ADDRESS 0x00 $((CMD_H0_DisplayControl | 0x04)) i   # CO=0 RS=0, display on & cursor off & cursor blink off
+    i2cset -y 1 $ADDRESS 0x00 $((CMD_H0_DisplayControl | 0x04)) i   # CO=0 RS=0, display on + cursor off + cursor blink off
 }
 function lcd_char(){
     echo "$1" | fold -w 1 | while read c
