@@ -1,17 +1,25 @@
-#!/usr/bin/python
+#!/usr/bin/python3
+#######################################
+# BMP180
+# -------------------------------------
+# libbmp180 sample code
+#
+#######################################
 import sys
-import Adafruit_BMP.BMP085 as BMP085
+import libbmp180 as BMP180
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
 
 def help():
-    print('Usage: bmp180.py [option]')
+    print('Usage: ./bmp180.py [option]')
     print(' a       Altitude [m]')
     print(' p       Pressure [Pa]')
-    print(' t       Temperature [*C]')
-    print(' sp      Sealevel Pressure [Pa]')
+    print(' t       Temperature [C]')
+    print(' s       Sealevel Pressure [Pa]')
     print(' help    show this message')
 
-sensor = BMP085.BMP085()
 args = sys.argv
+sensor = BMP180.BMP180()
 
 if   args[1] == 'p':
     print('{0:0.2f}'.format(sensor.read_pressure()))
