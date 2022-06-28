@@ -33,6 +33,7 @@ function lcd_init(){
     lcd_clear
     lcd_cursor 0
     i2cset -y 1 $ADDRESS 0x00 $((CMD_H0_DisplayControl | 0x04)) i   # CO=0 RS=0, display on + cursor off + cursor blink off
+    i2cset -y 1 $ADDRESS 0x00 0x0C i    # display on
 }
 function lcd_char(){
     echo "$1" | fold -w 1 | while read c
